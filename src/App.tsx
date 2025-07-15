@@ -1,49 +1,45 @@
-import { useState, useEffect } from 'react';
-import Flashcard from './components/Flashcard';
-import { flashcardsData as allFlashcards } from './data/flashcards';
-import type { Flashcard as FlashcardType } from './types';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from 'react-router-dom';
+
+import { useTheme } from './hooks/useTheme';
+
+// Import Pages
+import HomePage from './pages/HomePage';
+import ReviewPage from './pages/ReviewPage';
+import TestPage from './pages/TestPage';
+import StatsPage from './pages/StatsPage';
+
+// Import Components
+import Navigation from './components/Navigation';
 
 function App() {
-  const [currentCard, setCurrentCard] = useState<FlashcardType | null>(null);
-
-  useEffect(() => {
-    // Set a default theme
-    document.body.setAttribute('data-theme', 'light');
-    // Load a sample card
-    setCurrentCard(allFlashcards[0]);
-  }, []);
-
-  const handleKnow = (cardId: string) => {
-    console.log(`User knows card ${cardId}`);
-    // Logic to advance to the next card will be added later
-  };
-
-  const handleDontKnow = (cardId: string) => {
-    console.log(`User does not know card ${cardId}`);
-    // Logic to advance to the next card will be added later
-  };
+  const [theme, toggleTheme] = useTheme();
 
   return (
-    <div className="container">
-      <header>
-        <h1>日本語学習カード</h1>
-        <p>Japanese Learning Flashcards</p>
-      </header>
-      <main>
-        {currentCard ? (
-          <Flashcard 
-            card={currentCard}
-            onKnow={handleKnow}
-            onDontKnow={handleDontKnow}
-          />
-        ) : (
-          <p>Loading card...</p>
-        )}
-      </main>
-      <footer>
-        <p>Phase 2: Core UI Components</p>
-      </footer>
-    </div>
+    <Router>
+      <div className="container">
+        <header>
+          <h1>日本語学習カード</h1>
+          <p>Japanese Learning Flashcards</p>
+        </header>
+        
+        <Navigation onThemeToggle={toggleTheme} currentTheme={theme} />
+
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/review" element={<ReviewPage />} />
+          <Route path="/test" element={<TestPage />} />
+          <Route path="/stats" element={<StatsPage />} />
+        </Routes>
+
+        <footer>
+          <p>Phase 4: Learning Mode Improvements</p>
+        </footer>
+      </div>
+    </Router>
   );
 }
 

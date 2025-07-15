@@ -1,0 +1,67 @@
+/* src/components/Navigation.css */
+
+.main-nav {
+  display: flex;
+  justify-content: space-between; /* Adjusted for toggle button */
+  align-items: center; /* Vertically align items */
+  gap: 1rem;
+  padding: 0.75rem 1rem; /* Adjusted padding */
+  background-color: var(--color-surface);
+  border-radius: 12px;
+  box-shadow: var(--shadow-light);
+  margin-bottom: 2rem;
+  width: 100%;
+  max-width: 600px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.main-nav a {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  color: var(--color-text);
+  background-color: transparent;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  border: 1px solid transparent;
+}
+
+.main-nav a:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+.main-nav a.active {
+  background-color: var(--color-primary);
+  color: #fff;
+  border: 1px solid var(--color-primary);
+  pointer-events: none; /* Disable click on active link */
+}
+
+.theme-toggle-button {
+  font-size: 1.5rem;
+  padding: 0.25rem;
+  line-height: 1;
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.theme-toggle-button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+body[data-theme='dark'] .theme-toggle-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+} 
