@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { Flashcard as FlashcardType } from '../types';
 import './Flashcard.css';
 
@@ -10,6 +10,22 @@ interface FlashcardProps {
 
 const Flashcard: React.FC<FlashcardProps> = ({ card, onKnow, onDontKnow }) => {
   const [isFlipped, setIsFlipped] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // We only want to flip the card if it's not being typed into an input field
+      if (e.code === 'Space' && (e.target as HTMLElement).tagName !== 'INPUT') {
+        e.preventDefault(); // Prevent scrolling the page
+        setIsFlipped(prev => !prev);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    // Cleanup function to remove the event listener
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []); // Empty dependency array ensures this runs only once per component mount
 
   const handleCardClick = () => {
     setIsFlipped(!isFlipped);
@@ -50,4 +66,4 @@ const Flashcard: React.FC<FlashcardProps> = ({ card, onKnow, onDontKnow }) => {
   );
 };
 
-export default Flashcard; 
+export default React.memo(Flashcard); 

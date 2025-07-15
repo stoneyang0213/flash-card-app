@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { useSessionStorage } from '../hooks/useSessionStorage';
 import { flashcardsData } from '../data/flashcards';
 import type { LearningProgress } from '../types';
@@ -45,7 +45,7 @@ const ReviewPage = () => {
     }
   };
 
-  const handleProgressUpdate = (cardId: string, isKnown: boolean) => {
+  const handleProgressUpdate = useCallback((cardId: string, isKnown: boolean) => {
     setProgress(prevProgress => {
       const existingEntryIndex = prevProgress.findIndex(p => p.cardId === cardId);
       if (existingEntryIndex > -1) {
@@ -56,15 +56,12 @@ const ReviewPage = () => {
         existingEntry.reviewCount += 1;
         return updatedProgress;
       }
-      // This case should not happen in review mode, but as a fallback:
       return [...prevProgress, { cardId, isKnown, lastReviewed: Date.now(), reviewCount: 1 }];
     });
 
     if (isKnown) {
-      // If marked as known, remove from current session deck
       const newDeck = reviewDeck.filter(card => card.id !== cardId);
       setReviewDeck(newDeck);
-      // Check if that was the last card in the new, smaller deck
       if (currentIndex >= newDeck.length && newDeck.length > 0) {
         setCurrentIndex(newDeck.length - 1);
       }
@@ -72,10 +69,9 @@ const ReviewPage = () => {
         alert("Review session finished!");
       }
     } else {
-      // If still not known, just go to the next card
       setTimeout(advanceToNextCard, 300);
     }
-  };
+  }, [reviewDeck, currentIndex, setProgress]); // Dependencies
 
   if (!currentCard) {
      return (

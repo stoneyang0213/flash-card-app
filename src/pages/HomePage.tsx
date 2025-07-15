@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import Flashcard from '../components/Flashcard';
 import CategoryFilter from '../components/CategoryFilter';
 import { flashcardsData } from '../data/flashcards';
@@ -45,7 +45,7 @@ const HomePage = () => {
     }
   };
 
-  const handleProgressUpdate = (cardId: string, isKnown: boolean) => {
+  const handleProgressUpdate = useCallback((cardId: string, isKnown: boolean) => {
     const newProgress: LearningProgress = {
       cardId,
       isKnown,
@@ -68,7 +68,7 @@ const HomePage = () => {
     });
     
     setTimeout(advanceToNextCard, 300);
-  };
+  }, [allFlashcards.length, currentIndex, setProgress]); // Dependencies for the callback
 
   return (
     <>
