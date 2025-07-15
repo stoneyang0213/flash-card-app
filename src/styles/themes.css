@@ -1,0 +1,57 @@
+/* src/styles/themes.css */
+:root {
+  --font-family-japanese: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo,
+    sans-serif;
+
+  /* Media Query Breakpoints */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+
+  /* Light Theme */
+  --color-background-light: #f4f6f8;
+  --color-surface-light: #ffffff;
+  --color-text-light: #2c3e50;
+  --color-primary-light: #3498db;
+  --color-secondary-light: #9b59b6;
+  --color-success-light: #2ecc71;
+  --color-error-light: #e74c3c;
+  --color-border-light: #e0e0e0;
+  --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  /* Dark Theme */
+  --color-background-dark: #1a1a1a;
+  --color-surface-dark: #2c2c2c;
+  --color-text-dark: #ecf0f1;
+  --color-primary-dark: #3498db;
+  --color-secondary-dark: #8e44ad;
+  --color-success-dark: #27ae60;
+  --color-error-dark: #c0392b;
+  --color-border-dark: #444444;
+  --shadow-dark: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+body[data-theme='light'] {
+  --color-background: var(--color-background-light);
+  --color-surface: var(--color-surface-light);
+  --color-text: var(--color-text-light);
+  --color-primary: var(--color-primary-light);
+  --color-secondary: var(--color-secondary-light);
+  --color-success: var(--color-success-light);
+  --color-error: var(--color-error-light);
+  --color-border: var(--color-border-light);
+  --shadow-card: var(--shadow-light);
+}
+
+body[data-theme='dark'] {
+  --color-background: var(--color-background-dark);
+  --color-surface: var(--color-surface-dark);
+  --color-text: var(--color-text-dark);
+  --color-primary: var(--color-primary-dark);
+  --color-secondary: var(--color-secondary-dark);
+  --color-success: var(--color-success-dark);
+  --color-error: var(--color-error-dark);
+  --color-border: var(--color-border-dark);
+  --shadow-card: var(--shadow-dark);
+} 
